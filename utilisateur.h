@@ -1,0 +1,6 @@
+#ifndef UTILISATEUR_H_INCLUDED
+#define UTILISATEUR_H_INCLUDED
+
+void Administrateur();
+
+#endif // UTILISATEUR_H_INCLUDED

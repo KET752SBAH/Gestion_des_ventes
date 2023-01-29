@@ -1,0 +1,152 @@
+# depslib dependency file v1.0
+1655670462 source:c:\users\dell\desktop\gestion d'un supermarche\gestion_des_vente_articles\articles.c
+	<stdio.h>
+	<stdlib.h>
+	"menu.h"
+	"utilisateur.h"
+	"articles.h"
+
+1655675475 source:c:\users\dell\desktop\gestion d'un supermarche\gestion_des_vente_articles\utilisateur.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1655674667 source:c:\users\dell\desktop\gestion d'un supermarche\gestion_des_vente_articles\main.c
+	<stdio.h>
+	<stdlib.h>
+	"utilisateur.h"
+
+1654635278 c:\users\dell\desktop\gestion d'un supermarche\gestion_des_vente_articles\utilisateur.h
+
+1655675350 source:c:\users\dell\desktop\gestion d'un supermarche\gestion_des_vente_articles\menu.c
+	<stdio.h>
+	<stdlib.h>
+
+1655901270 c:\users\dell\desktop\gestion d'un supermarche\gestion_des_vente_articles\articles.h
+
+1654636724 c:\users\dell\desktop\gestion d'un supermarche\gestion_des_vente_articles\menu.h
+
+1655484522 source:c:\users\dell\desktop\gestion d'un supermarche\gestion_des_vente_articles\ventes.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ventes.h"
+	"menu.h"
+	"utilisateur.h"
+
+1655470754 c:\users\dell\desktop\gestion d'un supermarche\gestion_des_vente_articles\ventes.h
+
+1656177334 source:c:\users\dell\desktop\gestion d'un supermarche\gestion_des_vente_articles - copie\articles.c
+	<stdio.h>
+	<stdlib.h>
+	"menu.h"
+	"utilisateur.h"
+	"articles.h"
+
+1654636724 c:\users\dell\desktop\gestion d'un supermarche\gestion_des_vente_articles - copie\menu.h
+
+1654635278 c:\users\dell\desktop\gestion d'un supermarche\gestion_des_vente_articles - copie\utilisateur.h
+
+1656176729 c:\users\dell\desktop\gestion d'un supermarche\gestion_des_vente_articles - copie\articles.h
+	<string.h>
+
+1655674667 source:c:\users\dell\desktop\gestion d'un supermarche\gestion_des_vente_articles - copie\main.c
+	<stdio.h>
+	<stdlib.h>
+	"utilisateur.h"
+
+1656173373 source:c:\users\dell\desktop\gestion d'un supermarche\gestion_des_vente_articles - copie\menu.c
+	<stdio.h>
+	<stdlib.h>
+
+1656149303 source:c:\users\dell\desktop\gestion d'un supermarche\gestion_des_vente_articles - copie\utilisateur.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1656177472 source:c:\users\dell\desktop\gestion d'un supermarche\gestion_des_vente_articles - copie\ventes.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ventes.h"
+	"menu.h"
+	"utilisateur.h"
+
+1656177538 c:\users\dell\desktop\gestion d'un supermarche\gestion_des_vente_articles - copie\ventes.h
+
+1656177334 source:c:\users\dell\desktop\projet finale\gestion_des_vente_articles\articles.c
+	<stdio.h>
+	<stdlib.h>
+	"menu.h"
+	"utilisateur.h"
+	"articles.h"
+
+1654636724 c:\users\dell\desktop\projet finale\gestion_des_vente_articles\menu.h
+
+1654635278 c:\users\dell\desktop\projet finale\gestion_des_vente_articles\utilisateur.h
+
+1656325874 c:\users\dell\desktop\projet finale\gestion_des_vente_articles\articles.h
+	<string.h>
+
+1655674667 source:c:\users\dell\desktop\projet finale\gestion_des_vente_articles\main.c
+	<stdio.h>
+	<stdlib.h>
+	"utilisateur.h"
+
+1656173373 source:c:\users\dell\desktop\projet finale\gestion_des_vente_articles\menu.c
+	<stdio.h>
+	<stdlib.h>
+
+1656283051 source:c:\users\dell\desktop\projet finale\gestion_des_vente_articles\utilisateur.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1656287111 source:c:\users\dell\desktop\projet finale\gestion_des_vente_articles\ventes.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ventes.h"
+	"menu.h"
+	"utilisateur.h"
+
+1656311980 c:\users\dell\desktop\projet finale\gestion_des_vente_articles\ventes.h
+
+1656177334 source:e:\mes documents\mes projets\projet langage c\projet finale\gestion_des_vente_articles\articles.c
+	<stdio.h>
+	<stdlib.h>
+	"menu.h"
+	"utilisateur.h"
+	"articles.h"
+
+1654636724 e:\mes documents\mes projets\projet langage c\projet finale\gestion_des_vente_articles\menu.h
+
+1654635278 e:\mes documents\mes projets\projet langage c\projet finale\gestion_des_vente_articles\utilisateur.h
+
+1656325874 e:\mes documents\mes projets\projet langage c\projet finale\gestion_des_vente_articles\articles.h
+	<string.h>
+
+1655674667 source:e:\mes documents\mes projets\projet langage c\projet finale\gestion_des_vente_articles\main.c
+	<stdio.h>
+	<stdlib.h>
+	"utilisateur.h"
+
+1656173373 source:e:\mes documents\mes projets\projet langage c\projet finale\gestion_des_vente_articles\menu.c
+	<stdio.h>
+	<stdlib.h>
+
+1656283051 source:e:\mes documents\mes projets\projet langage c\projet finale\gestion_des_vente_articles\utilisateur.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1656287111 source:e:\mes documents\mes projets\projet langage c\projet finale\gestion_des_vente_articles\ventes.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ventes.h"
+	"menu.h"
+	"utilisateur.h"
+
+1656311980 e:\mes documents\mes projets\projet langage c\projet finale\gestion_des_vente_articles\ventes.h
+

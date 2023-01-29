@@ -1,0 +1,372 @@
+#ifndef VENTES_H_INCLUDED
+#define VENTES_H_INCLUDED
+#define N 200
+
+/****************************************** Création des structure Vente et Article *******************************************/
+typedef struct
+{
+    int idV;
+    int codeA;
+    char NomA[30];
+    int prixV;
+    int QtV;
+    int montantT;
+    int jourV;
+    int moisV;
+    int anneeV;
+}vente;
+vente v;
+
+typedef struct
+{
+    int codeA;
+    int jourP;
+    int moisP;
+    int anneeP;
+    char NomA[30];
+    int prixAchat;
+    int QtStock;
+}article;
+
+article a;
+
+FILE * fichier2;
+FILE * fichier;
+/***************************************************************************************************/
+
+/********************************************** Création du prototype **********************************************/
+
+void ajoutV();
+void modifierV();
+void supprimerV();
+void affV_alpha();
+int calAffBenefice();
+int calAffBeneficeT();
+
+/************************************* Création des fonctions/Procedure **************************************************/
+
+void ajoutV() /// Ajout des Ventes
+{
+    int codeR, code, tr=0,qt=0;
+    FILE * temp;
+    temp=fopen("temp.txt","at+");
+    fichier2 = fopen("vente.txt","at+");
+    fichier = fopen("article.txt","at+");
+    if(fichier2==NULL  || fichier==NULL)
+    {
+        printf("\t\tLE FICHIER VENTE N'EXISTE PAS \n");
+        exit(1);
+    }
+
+    printf("\n\n\t\t\tDonner le code vente du produit : ");scanf("%d",&codeR);
+    while(!feof(fichier2)) /// Parcourir le fichier vente
+    {
+        fscanf(fichier2,"%d\n%d\n%s\n%d\n%d\n%d\n%d %d %d\n\n",&v.idV,&v.codeA,v.NomA,&v.prixV,&v.QtV,&v.montantT,&v.jourV,&v.moisV,&v.anneeV);
+        if(v.idV==codeR) /// Vérification du code dans le fichier vente s'il existe alors l'utilisateur ne peut pas ajouter le même code
+        {
+            tr=1;
+            break;
+        }
+    }
+
+    if(tr==1)
+    {
+        printf("\t\tCe code vente existe deja \n");
+    }
+    else
+    {
+        fscanf(fichier,"%d\n%s\n%d %d %d\n%d\n%d\n\n",&a.codeA,a.NomA,&a.jourP,&a.moisP,&a.anneeP,&a.prixAchat,&a.QtStock);
+        printf("\t\tDonnez le code d'atricle a vendre ");scanf("%d",&code);
+
+        if(code==a.codeA)
+        {
+            strcpy(v.NomA,a.NomA);
+            int verP=0;
+            do
+            {
+                printf("\t\tPrix de vente : ");scanf("%d",&v.prixV);
+                if(a.prixAchat>v.prixV) ///Permert de controler la saisie de l'utilisateur voir si le prix de vente est inférieur au prix d'achat
+                {
+                    printf("\t\tLe Prix de Vente < au Prix d'Achat , le prix d'achat est %d \n",a.prixAchat);
+                    printf("\t\tVeuillez donner un prix de vente valide \n");
+                }
+                else
+                {
+                    verP=1;
+                }
+            }while(verP!=1);
+
+            do
+            {
+                printf("\t\tDonner la quantite a vendre : ");scanf("%d",&v.QtV);
+                if(a.QtStock<v.QtV) /// On comparer la quantité en stock et celui de la vente
+                {
+                    printf("\t\tLa Quantite en Stock n'est pas suffisant \n");
+                    printf("\t\tVeuillez entrer une quantite valide \n");
+                }
+                else
+                {
+                    qt=1;
+                }
+            }while(qt!=1);
+            a.QtStock=a.QtStock-v.QtV;
+            v.montantT=v.QtV*v.prixV;
+
+            printf("\t\tLe montant total est %d :\n",v.montantT);
+
+                printf("\t\tDonner la date de vente \n");
+                printf("\t\t\tJour --> ");scanf("%d",&v.jourV);
+                while(v.jourV<1 || v.jourV>28)
+                {
+                    printf("\t\t\tJour non valide --> ");scanf("%d",&v.jourV);
+                }
+
+                printf("\t\t\tMois --> ");scanf("%d",&v.moisV);
+                while(v.moisV<1 || v.moisV>6)
+                {
+                    printf("\t\t\tmois non valide --> ");
+                    scanf("%d",&v.moisV);
+                }
+                printf("\t\t\tannee --> ");scanf("%d",&v.anneeV);
+                while(v.anneeV>2022)
+                {
+                    printf("\t\t\tannee non valide --> ");
+                    scanf("%d",&v.anneeV);
+                }
+
+                printf("\t\tFelicitation Ajouter avec succes \n\n");
+        }
+        else
+        {
+            system("color b");
+            puts("\t\tCe code article n'existe pas dans la base des données ");
+        }
+        fprintf(fichier2,"%d\n%d\n%s\n%d\n%d\n%d\n%d %d %d\n\n",codeR,code,v.NomA,v.prixV,v.QtV,v.montantT,v.jourV,v.moisV,v.anneeV);
+        fprintf(temp,"%d\n%s\n%d %d %d\n%d\n%d\n\n",a.codeA,a.NomA,a.jourP,a.moisP,a.anneeP,a.prixAchat,a.QtStock);
+    }
+    fclose(fichier2);fclose(fichier);fclose(temp);
+    remove("article.txt");rename("temp.txt","article.txt");
+}
+
+void modifierV() /// Modification d'une vente
+{
+
+    int codeR, tr=0;
+    FILE * temp;
+    fichier=fopen("article.txt","rt");
+    fichier2=fopen("vente.txt","rt");
+
+    if(fichier2==NULL || fichier==NULL)
+    {
+        printf("\t\tImpossible d'ouvrir le fichier article/vente");
+        exit(1);
+    }
+    temp = fopen("temp.txt","wt");
+    if(temp==NULL)
+    {
+        printf("\t\timpossible d'ouvrir le fichier");
+    }
+    printf("\t\tDonnez le code de vente a modifier ");scanf("%d",&codeR);
+    while(!feof(fichier2))
+    {
+        fscanf(fichier2,"%d\n%d\n%s\n%d\n%d\n%d\n%d %d %d\n\n",&v.idV,&v.codeA,v.NomA,&v.prixV,&v.QtV,&v.montantT,&v.jourV,&v.moisV,&v.anneeV);
+        if(codeR==v.idV)
+        {
+            tr=1;
+            break;
+
+        }
+    }
+
+    if(tr==0)
+    {
+        printf("\t\tLe Code n'existe pas \n");
+    }
+    else
+    {
+       fscanf(fichier,"%d\n%s\n%d %d %d\n%d\n%d\n\n",&a.codeA,a.NomA,&a.jourP,&a.moisP,&a.anneeP,&a.prixAchat,&a.QtStock);
+
+        strcpy(v.NomA,a.NomA);
+        printf("\t\tDonnez les nouveau informations : \n"); /// modification
+        printf("\t\tLe prix de vente : ");scanf("%d",&v.prixV);
+        printf("\t\tLa Quantite Vendu : ");scanf("%d",&v.QtV);
+        v.montantT=v.QtV*v.prixV;
+        printf("\t\tLe montant Total est: %d\n",v.montantT);
+
+        printf("\t\tDonner la date de vente \n");
+        printf("\t\t\tJour --> ");scanf("%d",&v.jourV);
+        while(v.jourV<1 || v.jourV>28)
+        {
+            printf("\t\t\tJour non valide --> ");scanf("%d",&v.jourV);
+        }
+
+        printf("\t\t\tMois --> ");scanf("%d",&v.moisV);
+        while(v.moisV<1 || v.moisV>6)
+        {
+            printf("\t\t\tmois non valide --> ");scanf("%d",&v.moisV);
+        }
+
+        printf("\t\t\tannee --> ");scanf("%d",&v.anneeV);
+        while(v.anneeV==2022)
+        {
+            printf("\t\t\tannee non valide --> ");
+            scanf("%d",&v.anneeV);
+        }
+        fprintf(temp,"%d\n%d\n%s\n%d\n%d\n%d\n%d %d %d\n\n",v.idV,v.codeA,v.NomA,v.prixV,v.QtV,v.montantT,v.jourV,v.moisV,v.anneeV);
+    }
+    fclose(fichier2); fclose(temp);fclose(fichier);
+    remove("vente.txt");
+    rename("temp.txt","vente.txt");
+}
+
+void supprimerV() /// Suppression d'une vente
+{
+    int codeR, tr=0;
+    FILE * temp;
+    fichier2=fopen("vente.txt","rt");
+
+    if(fichier2==NULL)
+    {
+        printf("Impossible d'ouvrir le fichier VENTE ");
+        exit(1);
+    }
+    temp = fopen("temp.txt","wt");
+    if(temp==NULL)
+    {
+        printf("impossible d'ouvrir le fichier TEMP");
+    }
+    printf("\t\tDonnez le code de vente a supprimer ");scanf("%d",&codeR);
+    while(!feof(fichier2))
+    {
+        fscanf(fichier2,"%d\n%d\n%s\n%d\n%d\n%d\n%d %d %d\n\n",&v.idV,&v.codeA,v.NomA,&v.prixV,&v.QtV,&v.montantT,&v.jourV,&v.moisV,&v.anneeV);
+
+        if(v.idV!=codeR){
+         fprintf(temp,"%d\n%d\n%s\n%d\n%d\n%d\n%d %d %d\n\n",v.idV,v.codeA,v.NomA,v.prixV,v.QtV,v.montantT,v.jourV,v.moisV,v.anneeV);
+        }
+        else
+            tr=1;
+    }
+    fclose(fichier2); fclose(temp);
+    remove("vente.txt");
+    rename("temp.txt","vente.txt");
+
+    if(tr==0)
+    {
+        printf("\t\tLe Code n'existe pas \n");
+    }
+    else
+    {
+        printf("\t\tSuppression avec succes \n");
+    }
+}
+
+void affV_alpha() /// Afficher la liste des ventes par ordre alphabetique
+{
+    vente tab[N];
+    vente temps;
+    int i=0;
+    int nbre = 0;
+
+    fichier2 =fopen("vente.txt","rt");
+
+    if(fichier2==NULL)
+    {
+        printf("Impossible d'ouvrire le fichier vente.txt \n");
+        exit(1);
+    }
+
+    while(!feof(fichier2))
+    {
+        fscanf(fichier2,"%d\n%d\n%s\n%d\n%d\n%d\n%d %d %d\n",&tab[i].idV,&tab[i].codeA,tab[i].NomA,&tab[i].prixV,&tab[i].QtV,&tab[i].montantT,&tab[i].jourV,&tab[i].moisV,&tab[i].anneeV);
+        i++;
+    }
+
+    fclose(fichier2);
+
+    for(int n=0;n<i-1;n++)
+    {
+        nbre++;
+        for(int k = n+1;k<i;k++)
+        {
+            if(strcmp(tab[k].NomA,tab[n].NomA)==-1)
+            {
+                temps=tab[n];
+                tab[n]=tab[k];
+                tab[k]=temps;
+            }
+        }
+    }
+
+    printf("\n\n\t\t\tLA LISTE DES VENTES PAR ORDRE ALPHABETIQUE \n");
+    puts("\t\t|------------------------------------------------------------------------------------|");
+    printf("\t\t|CODE VENTE |CODE ARTICLE |NOM VENTE | PRIX-VENTE | QT_VENTE | MONTANT-T |DATE-VENTE |\n");
+    puts("\t\t|------------------------------------------------------------------------------------|");
+
+    for(int j=0;j<=nbre;j++)
+    {
+        printf("\t\t  %d \t\t%d \t    %s \t  %dGNF \t  %d \t %dGNF  %d/%d/%d\n",tab[j].idV,tab[j].codeA,tab[j].NomA,tab[j].prixV,tab[j].QtV,tab[j].montantT,tab[j].jourV,tab[j].moisV,tab[j].anneeV);
+    }
+}
+
+int calAffBenefice() /// Calcul et affichage le benefice de chaque article
+{
+    float beneficeV;
+    fichier=fopen("article.txt","rt");
+    fichier2=fopen("vente.txt","rt");
+
+    if(fichier2==NULL)
+    {
+        printf("Impossible d'ouvrire le fichier vente.txt \n");
+        exit(1);
+    }
+
+    puts("\n\n\t\t\tCALCULE ET AFFICHAGE LE BENEFICE DE CHAQUE ARTICLE ");
+    printf("\t\t---------------------------------------------------------------------------------\n");
+    printf("\t\t CODE_ARTICLE\tCODE_ID\tNOM_ARTICLE\tPRIX D'ACHAT\tPRIX DE VENTE\tBENEFICE \n");
+    printf("\t\t---------------------------------------------------------------------------------\n");
+    while(!feof(fichier2))
+    {
+        fscanf(fichier2,"%d\n%d\n%s\n%d\n%d\n%d\n%d %d %d\n\n",&v.idV,&v.codeA,v.NomA,&v.prixV,&v.QtV,&v.montantT,&v.jourV,&v.moisV,&v.anneeV);
+        fscanf(fichier,"%d\n%s\n%d %d %d\n%d\n%d\n\n",&a.codeA,a.NomA,&a.jourP,&a.moisP,&a.anneeP,&a.prixAchat,&a.QtStock);
+
+        beneficeV=v.prixV-a.prixAchat;
+
+        printf("\t\t %d\t\t%d\t%s\t\t%d\t\t%d\t\t%.0fGNF\n",a.codeA,v.idV,v.NomA,a.prixAchat,v.prixV,beneficeV);
+        printf("\t\t----------------------------------------------------------------------------------\n");
+    }
+
+    fclose(fichier2);fclose(fichier);
+}
+
+int calAffBeneficeT() /// Calcul et affichage le benefice total des articles
+{
+    float beneficeV;
+    float benficeT=0;
+    fichier=fopen("article.txt","rt");
+    fichier2=fopen("vente.txt","rt");
+
+    if(fichier2==NULL)
+    {
+        printf("Impossible d'ouvrire le fichier vente.txt \n");
+        exit(1);
+    }
+    system("color a");
+    printf("\n\n\t\tCALCUL ET AFFICHAGE LE BENEFICE TOTAL DES ARTICLES \n");
+    while(!feof(fichier2))
+    {
+        fscanf(fichier2,"%d\n%d\n%s\n%d\n%d\n%d\n%d %d %d\n\n",&v.idV,&v.codeA,v.NomA,&v.prixV,&v.QtV,&v.montantT,&v.jourV,&v.moisV,&v.anneeV);
+        fscanf(fichier,"%d\n%s\n%d %d %d\n%d\n%d\n\n",&a.codeA,a.NomA,&a.jourP,&a.moisP,&a.anneeP,&a.prixAchat,&a.QtStock);
+
+        beneficeV=v.prixV-a.prixAchat;
+        benficeT=benficeT+beneficeV;
+    }
+    puts("\t\t\t*************************************");
+    printf("\t\t\t*\tLE BENEFICE TOTAL           *\n");
+    puts("\t\t\t*************************************");
+    printf("\t\t\t*\t  %.2f GNF             *",benficeT);
+    puts("\n\t\t\t*************************************\n\n");
+
+    fclose(fichier2);fclose(fichier);
+}
+
+#endif // VENTES_H_INCLUDED

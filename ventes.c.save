@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "ventes.h"
+#include "menu.h"
+#include "utilisateur.h"
+
+void f_Ventes()
+{
+    int choix;
+    do
+    {me:
+    puts("\n\t************************__MENU GESTION DES VENTES__*********************");
+    puts("\t*\t1- AJOUTER UNE VENTE                                           *");
+    puts("\t*\t2- MODIFIER UNE VENTE                                          *");
+    puts("\t*\t3- SUPPRIMER UNE VENTE                                         *");
+    puts("\t*\t4- AFFICHER LA LISTE DES VENTES PAR ORDRE ALPHABETIQUE         *");
+    puts("\t*\t5- CALCUL ET AFFICHAGE DES BENEFICE DE CHAQUE ARTICLE          *");
+    puts("\t*\t6- CALCUL ET AFFICHAGE LE BENEFICE TOTAL DES ARTICLES          *");
+    puts("\t*\t0- Precedent !!!                                               *");
+    puts("\t************************************************************************");
+    printf("\tVOTRE CHOIX ---> ");scanf("%d",&choix);
+
+    switch(choix)
+    {
+    case 0:{system("cls");system("color 1");return menu();system("color 3");}
+    case 1:{system("cls");system("color 3"); ajoutV()     ;system("pause");system("cls");system("color 4");goto me;break;}
+    case 2:{system("cls");system("color 4"); modifierV()  ;system("pause");system("cls");system("color 5");goto me;break;}
+    case 3:{system("cls");system("color 5"); supprimerV() ;system("pause");system("cls");system("color 6");goto me;break;}
+    case 4:{system("cls");system("color 6"); affV_alpha();       system("pause");system("cls");system("color 7");goto me;break;}
+    case 5:{system("cls");system("color 7"); calAffBenefice();   system("pause");system("cls");system("color 8");goto me;break;}
+    case 6:{system("cls");system("color A"); calAffBeneficeT();  system("pause");system("cls");system("color B");goto me;break;}
+    default:{goto me ;break;}
+    }
+    }while(choix<0 || choix >7);
+
+}

@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "menu.h"
+#include "utilisateur.h"
+#include "articles.h"
+
+void f_Articles()
+{
+    int choix;
+    do
+    {me:
+    system("cls");
+    printf("\t\n\t***********************************_MENU GESTION DES ARTICLES_*******************************************\n");
+    printf("\t*\t1- AJOUTER UN ARTICLE                                                                           *\n");
+    printf("\t*\t2- MODIFIER UN ARTICLE                                                                          *\n");
+    printf("\t*\t3- SUPPRIMER UN ARTICLE                                                                         *\n");
+    printf("\t*\t4- AFFICHER LA LISTE DES ARTTICLES PAR ORDRE ALPHABETIQUE                                       *\n");
+    printf("\t*\t5- AFFICHER LA LISTE DES ARTICLES PAR ORDRE CROISSANT DE QUANTITE EN STOCK                      *\n");
+    printf("\t*\t6- CALCUL ET AFFICHAGE DE LA LISTE DES ARTICLES AYANT UNE QUANTITE EN STOCK SUPERIEUR A 20      *\n");
+    printf("\t*\t7- AFFICHAGE DE LISTE DES ARTICLES QUI DOIVENT PERIMER DANS 2 MOIS                              *\n");
+    printf("\t*\t0- Precedent !!!                                                                                *\n");
+    printf("\t*********************************************************************************************************\n");
+    printf("\tVOTRE CHOIX ---> ");scanf("%d",&choix);
+
+    switch(choix)
+    {
+    case 0:{system("cls");system("color 7") ;return menu();}
+    case 1:{system("cls");system("color E");    ajoutA()    ;system("pause");system("cls");goto me;break;}
+    case 2:{system("cls");system("color 5");    modifierA();system("pause");system("cls");goto me;break;}
+    case 3:{system("cls");system("color 4");    supprimerA();system("pause");system("cls");goto me;break;}
+    case 4:{system("cls");system("color 3");    affA_alph();system("pause");system("cls");goto me;break;}
+    case 5:{system("cls");system("color 2");    affA_Qt();system("pause");system("cls");goto me;break;}
+    case 6:{system("cls");system("color 1");    calAffA_QtSup();system("pause");system("cls");goto me;break;}
+    case 7:{system("cls");system("color 6");    affA_p();system("pause");system("cls");goto me;break;}
+    default:{goto me ;break;}
+    }
+    }while(choix<0 || choix >7);
+
+}
